@@ -1,15 +1,22 @@
 console.log("test");
-document.querySelector("#content").innerHTML = "<p>test</p>";
+let isBreak = false;
 let interval;
+let isworking = false;
 const start = async (isfirstTime) => {
   const url = document.querySelector("#search-input").value;
-  if (interval) {
-    stop();
-  }
 
+  if (isworking && isfirstTime) {
+    alert("please stop last search");
+    return;
+  }
+  isworking = true;
+  if (isBreak && isfirstTime) {
+    alert("please wait 5 seconds to stop last search");
+    return;
+  }
   const randomTime = Date.now();
 
-  fetch(`http://localhost:3000?${randomTime}=${randomTime}`, {
+  fetch(`http://75.119.135.27:3000?${randomTime}=${randomTime}`, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     headers: {
       "Content-Type": "application/json",
@@ -20,6 +27,10 @@ const start = async (isfirstTime) => {
     .then((response) => response.json())
     .then(
       async (data) => {
+        if (isBreak) {
+          isBreak = false;
+          throw new Error("stop");
+        }
         console.log(data);
         if (!data.isNotNeeded) {
           setData(data.cars.filter);
@@ -28,6 +39,10 @@ const start = async (isfirstTime) => {
         start(false);
       },
       async (error) => {
+        if (isBreak) {
+          isBreak = false;
+          throw new Error("stop");
+        }
         console.log(error);
         await setTimeout(1000);
         start(false);
@@ -53,5 +68,11 @@ setData = (data) => {
   });
 };
 const stop = () => {
-  clearInterval(interval);
+  isBreak = true;
+  isworking = false;
+  alert("please wait 5 seconds to stop last search");
+
+  setTimeout(() => {
+    isBreak = false;
+  }, 5000);
 };

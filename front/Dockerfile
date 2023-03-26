@@ -9,7 +9,7 @@ COPY nginx.conf /etc/nginx/conf.d/
 
 # Copy the index.html and script.js files to the Nginx html directory
 COPY index.html /usr/share/nginx/html/
-COPY script.js /usr/share/nginx/html/
+COPY scripts.js /usr/share/nginx/html/
 
 # Expose port 80 for HTTP
 EXPOSE 80
