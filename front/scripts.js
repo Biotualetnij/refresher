@@ -1,6 +1,8 @@
 console.log("test");
 let isBreak = false;
 let interval;
+
+const clientCode = Date.now();
 let isworking = false;
 const start = async (isfirstTime) => {
   const url = document.querySelector("#search-input").value;
@@ -22,7 +24,7 @@ const start = async (isfirstTime) => {
       "Content-Type": "application/json",
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: JSON.stringify({ url: url, firstTime: isfirstTime }),
+    body: JSON.stringify({ url: url, firstTime: isfirstTime, clientCode }),
   })
     .then((response) => response.json())
     .then(
