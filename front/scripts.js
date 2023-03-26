@@ -18,7 +18,7 @@ const start = async (isfirstTime) => {
   }
   const randomTime = Date.now();
 
-  fetch(`http://localhost:3000?${randomTime}=${randomTime}`, {
+  fetch(`http://75.119.135.27:3000?${randomTime}=${randomTime}`, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     headers: {
       "Content-Type": "application/json",
