@@ -16,7 +16,7 @@ const start = async (isfirstTime) => {
   }
   const randomTime = Date.now();
 
-  fetch(`http://75.119.135.27:3000?${randomTime}=${randomTime}`, {
+  fetch(`http://localhost:3000?${randomTime}=${randomTime}`, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     headers: {
       "Content-Type": "application/json",
@@ -56,13 +56,10 @@ setData = (data) => {
   data.forEach((element) => {
     const node = document.createElement("li");
     node.innerHTML = `
-    <a href="${element.link}"><img src="${element.img}"></a>
+    <a href="${element.link}"><img style="width:4rem;"src="${element.img}"></a>
     <a href="${element.link}"><div> title:${element.title}</div> </a>
-    <div> name:${element.name}</div>
-    <div> price:${element.price}</div>
-    <div> date when it start to exist on website:${new Date(
-      element.date
-    ).toISOString()}</div>
+    <div> name:${element?.name}</div>
+    <div> price:${element?.price}</div>
    `;
     container.appendChild(node);
   });
